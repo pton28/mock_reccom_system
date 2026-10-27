@@ -1,0 +1,192 @@
+{
+  "$defs": {
+    "ProductSpecification": {
+      "properties": {
+        "specification_name": {
+          "maxLength": 255,
+          "minLength": 1,
+          "title": "Specification Name",
+          "type": "string"
+        },
+        "specification_value": {
+          "minLength": 1,
+          "title": "Specification Value",
+          "type": "string"
+        }
+      },
+      "required": [
+        "specification_name",
+        "specification_value"
+      ],
+      "title": "ProductSpecification",
+      "type": "object"
+    },
+    "ProductVariant": {
+      "properties": {
+        "sku": {
+          "maxLength": 16,
+          "minLength": 1,
+          "title": "Sku",
+          "type": "string"
+        },
+        "price": {
+          "description": "Demo USD, whole-dollar units",
+          "minimum": 0,
+          "title": "Price",
+          "type": "integer"
+        },
+        "quantity": {
+          "minimum": 0,
+          "title": "Quantity",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "sku",
+        "price",
+        "quantity"
+      ],
+      "title": "ProductVariant",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "domain_id": {
+      "anyOf": [
+        {
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Domain Id"
+    },
+    "id": {
+      "maxLength": 100,
+      "minLength": 1,
+      "title": "Id",
+      "type": "string"
+    },
+    "name": {
+      "maxLength": 255,
+      "minLength": 1,
+      "title": "Name",
+      "type": "string"
+    },
+    "description": {
+      "title": "Description",
+      "type": "string"
+    },
+    "avg_rating": {
+      "anyOf": [
+        {
+          "maximum": 5,
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Avg Rating"
+    },
+    "sold_count": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Sold Count",
+      "type": "integer"
+    },
+    "is_published": {
+      "default": true,
+      "title": "Is Published",
+      "type": "boolean"
+    },
+    "category_id": {
+      "title": "Category Id",
+      "type": "string"
+    },
+    "category": {
+      "title": "Category",
+      "type": "string"
+    },
+    "brand_id": {
+      "title": "Brand Id",
+      "type": "string"
+    },
+    "brand": {
+      "title": "Brand",
+      "type": "string"
+    },
+    "color": {
+      "title": "Color",
+      "type": "string"
+    },
+    "attributes": {
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "integer"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          }
+        ]
+      },
+      "title": "Attributes",
+      "type": "object"
+    },
+    "variants": {
+      "items": {
+        "$ref": "#/$defs/ProductVariant"
+      },
+      "minItems": 1,
+      "title": "Variants",
+      "type": "array"
+    },
+    "specifications": {
+      "items": {
+        "$ref": "#/$defs/ProductSpecification"
+      },
+      "minItems": 1,
+      "title": "Specifications",
+      "type": "array"
+    },
+    "price": {
+      "minimum": 0,
+      "title": "Price",
+      "type": "integer"
+    },
+    "stock": {
+      "minimum": 0,
+      "title": "Stock",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "description",
+    "category_id",
+    "category",
+    "brand_id",
+    "brand",
+    "color",
+    "attributes",
+    "variants",
+    "specifications",
+    "price",
+    "stock"
+  ],
+  "title": "Product",
+  "type": "object"
+}

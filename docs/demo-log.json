@@ -1,0 +1,37 @@
+{
+  "users": 1000,
+  "products": 300,
+  "events": 100000,
+  "event_counts": {
+    "product_impression": 58778,
+    "product_click": 16393,
+    "product_view": 16393,
+    "add_to_cart": 4788,
+    "purchase": 1222,
+    "add_to_wishlist": 2426
+  },
+  "sessions": 7348,
+  "seed": 42,
+  "sha256": "380a79036a547b1a996bcd22ded01b284df988125bd2d3d706b75efcf1200c69",
+  "rejected": 0,
+  "note": "Synthetic behavioral history, not real orders or inventory movements.",
+  "domain_counts": {
+    "product": 300,
+    "product_variant": 300,
+    "product_specification": 1860,
+    "brand": 20,
+    "category": 10,
+    "product_brand": 300,
+    "product_category": 300
+  },
+  "tests_passed": 30,
+  "sqlite_foreign_keys": "passed",
+  "exports": "runtime/product-demo",
+  "postgresql": "DDL provided; runtime is SQLite",
+  "scope": "product_and_tracking_only",
+  "recommendation": "empty_file_structure_only",
+  "gold_tables": {
+    "user_item_event_counts": 90559,
+    "session_sequences": 7348
+  }
+}

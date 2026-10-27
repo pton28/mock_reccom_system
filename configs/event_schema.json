@@ -1,0 +1,248 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "NUTEE behavioral event",
+  "type": "object",
+  "required": [
+    "event_id",
+    "timestamp",
+    "distinct_id",
+    "event_name"
+  ],
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "distinct_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100
+    },
+    "event_name": {
+      "enum": [
+        "product_impression",
+        "product_click",
+        "product_view",
+        "search",
+        "add_to_wishlist",
+        "add_to_cart",
+        "purchase",
+        "remove_from_cart"
+      ]
+    },
+    "product_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "query": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 200
+    },
+    "order_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 100
+    },
+    "source": {
+      "enum": [
+        "website",
+        "simulator"
+      ]
+    },
+    "synthetic": {
+      "type": "boolean"
+    },
+    "consent": {
+      "type": "boolean"
+    },
+    "environment": {
+      "enum": [
+        "dev",
+        "staging",
+        "production"
+      ]
+    },
+    "session_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 150
+    },
+    "order_item_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 150
+    },
+    "page": {
+      "enum": [
+        "home",
+        "catalog",
+        "search",
+        "product_detail",
+        "cart",
+        null
+      ]
+    },
+    "list_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 150
+    },
+    "position": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    },
+    "request_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 150
+    },
+    "bot": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "event_name": {
+            "const": "search"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "query"
+        ],
+        "properties": {
+          "query": {
+            "type": "string",
+            "pattern": "\\S"
+          }
+        }
+      },
+      "else": {
+        "required": [
+          "product_id"
+        ],
+        "properties": {
+          "product_id": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "event_name": {
+            "const": "purchase"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "order_id"
+        ],
+        "properties": {
+          "order_id": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "synthetic"
+        ],
+        "properties": {
+          "synthetic": {
+            "const": false
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "consent"
+        ],
+        "properties": {
+          "consent": {
+            "const": true
+          },
+          "source": {
+            "const": "website"
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "event_name": {
+                  "const": "purchase"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "order_item_id"
+              ],
+              "properties": {
+                "order_item_id": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "synthetic"
+        ],
+        "properties": {
+          "synthetic": {
+            "const": true
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "environment": {
+            "enum": [
+              "dev",
+              "staging"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

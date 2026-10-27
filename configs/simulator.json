@@ -1,0 +1,6 @@
+{
+  "version": "sessions-v3-no-personas", "seed": 42, "days": 45, "start": "2026-01-01T00:00:00+00:00",
+  "exposure_size": 8, "exploration": 0.25, "noise_click": 0.05,
+  "cart_probability": 0.3, "purchase_probability": 0.25, "wishlist_probability": 0.15,
+  "scenarios": ["S1_long_term", "S2_intent_shift", "S3_cold_start"]
+}
