@@ -1,0 +1,4 @@
+numpy>=2,<3
+scipy>=1.16,<2
+implicit==0.7.3
+threadpoolctl>=3,<4
